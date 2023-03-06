@@ -2,9 +2,9 @@ import { React, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { BsFillPencilFill } from "react-icons/bs";
 import { AiFillDelete } from "react-icons/ai";
 import { Button } from "@mui/material";
+import ModalEdit from "../Modal-edit-btn";
 
 const style = {
   position: "absolute",
@@ -24,24 +24,12 @@ export default function ModalDelete() {
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
-      <BsFillPencilFill
-        style={{
-          marginLeft: 30,
-          marginRight: 40,
-          cursor: "pointer",
-          fontSize: 24,
-        }}
-        onClick={handleOpen}
-      >
-        Open modal
-      </BsFillPencilFill>
+    <>
+      <ModalEdit />
       <AiFillDelete
         style={{ cursor: "pointer", fontSize: 24 }}
         onClick={handleOpen}
-      >
-        Open modal
-      </AiFillDelete>
+      ></AiFillDelete>
       <Modal
         open={open}
         onClose={handleClose}
@@ -57,16 +45,16 @@ export default function ModalDelete() {
               onClick={handleClose}
               sx={{ ml: 17, mr: 3 }}
               variant="outlined"
-              color="error"
+              color="info"
             >
               Cancel
             </Button>
-            <Button variant="contained" color="success">
+            <Button variant="contained" color="error">
               Delete
             </Button>
           </Typography>
         </Box>
       </Modal>
-    </div>
+    </>
   );
 }

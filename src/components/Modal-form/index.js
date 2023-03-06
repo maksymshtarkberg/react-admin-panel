@@ -57,7 +57,7 @@ export default function BasicModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <h1>Edit product</h1>
+          <h1>Add product</h1>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             <FormPropsTextFields />
           </Typography>
