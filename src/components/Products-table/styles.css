@@ -1,0 +1,23 @@
+.products__table {
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+.products__sign {
+  margin: 0 auto;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 77px;
+  padding-bottom: 75px;
+  color: #ffffff;
+}
+
+.stripe {
+  background-color: #d9d9d9;
+}
+.stripe-hover:hover {
+  background-color: #44b26f;
+}

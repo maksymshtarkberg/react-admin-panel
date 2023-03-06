@@ -1,0 +1,30 @@
+.login__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login__input {
+  width: 277px;
+  height: 56px;
+  border: 0.5px;
+  background-color: #d9d9d9;
+  margin: 20px auto;
+  text-indent: 20px;
+  color: #44b26f;
+}
+
+::placeholder {
+  color: #44b26f;
+  font-size: 14px;
+}
+
+.login__btn {
+  background-color: #44b26f;
+  border: 0px;
+  padding: 15px 0 15px 0;
+  color: white;
+  font-size: 24px;
+  margin: 20px 155px;
+  margin-bottom: 130px;
+  cursor: pointer;
+}

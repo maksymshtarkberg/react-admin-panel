@@ -1,0 +1,4 @@
+.form__add-products {
+  display: "flex";
+  flex-direction: column;
+}
