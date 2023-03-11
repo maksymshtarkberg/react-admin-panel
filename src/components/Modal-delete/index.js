@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -18,14 +18,14 @@ const style = {
   p: 4,
 };
 
-export default function ModalDelete() {
+export default function ModalDelete({ tableData }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <>
-      <ModalEdit />
+      <ModalEdit tableData={tableData} />
       <AiFillDelete
         style={{ cursor: "pointer", fontSize: 24 }}
         onClick={handleOpen}

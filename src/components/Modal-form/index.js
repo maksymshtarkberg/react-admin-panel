@@ -7,6 +7,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { Button } from "@mui/material";
 import FormPropsTextFields from "../Form-add_products";
+import { RxCross2 } from "react-icons/rx";
 
 const style = {
   position: "absolute",
@@ -33,7 +34,19 @@ const style_btn = {
   },
 };
 
-export default function BasicModal(props) {
+export default function BasicModal({
+  text,
+  text1,
+  name,
+  setName,
+  addProduct,
+  Cathegory,
+  setCathegory,
+  Quantity,
+  setQuantity,
+  Price,
+  setPrice,
+}) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -42,12 +55,12 @@ export default function BasicModal(props) {
     <div className="modal__btn">
       <FaRegUser className="btn-user-icon" />
       <Button sx={style_btn} size="large">
-        {props.text}
+        {text}
       </Button>
       <div className="modal__products-btn">
         <AiOutlinePlus className="btn-plus-icon" fontSize={24} />
         <Button sx={style_btn} size="large" onClick={handleOpen}>
-          {props.text1}
+          {text1}
         </Button>
       </div>
       <Modal
@@ -58,8 +71,18 @@ export default function BasicModal(props) {
       >
         <Box sx={style}>
           <h1>Add product</h1>
+          <RxCross2 className="close-cross" onClick={handleClose} />
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            <FormPropsTextFields />
+            <FormPropsTextFields
+              Cathegory={Cathegory}
+              setCathegory={setCathegory}
+              Quantity={Quantity}
+              setQuantity={setQuantity}
+              Price={Price}
+              setPrice={setPrice}
+              name={name}
+              setName={setName}
+            />
           </Typography>
 
           <Typography id="modal-modal-description" sx={{ ml: 2, mt: 3 }}>
@@ -71,7 +94,12 @@ export default function BasicModal(props) {
             >
               Cancel
             </Button>
-            <Button variant="contained" color="success">
+            <Button
+              onClick={addProduct}
+              type="submit"
+              variant="contained"
+              color="success"
+            >
               Submit
             </Button>
           </Typography>

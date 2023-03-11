@@ -1,13 +1,14 @@
 import { BsFillPencilFill } from "react-icons/bs";
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Button } from "@mui/material";
 import FormPropsTextFields from "../Form-add_products";
+import { RxCross2 } from "react-icons/rx";
 
 function ModalEdit() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -44,6 +45,11 @@ function ModalEdit() {
       >
         <Box sx={style}>
           <h1>Edit product</h1>
+          <RxCross2
+            style={{ left: 427 }}
+            className="close-cross"
+            onClick={handleClose}
+          />
           <Typography id="modal-modal-title" variant="h6" component="h2">
             <FormPropsTextFields />
           </Typography>

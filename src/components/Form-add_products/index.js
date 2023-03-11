@@ -17,16 +17,16 @@ function EmptyTextarea() {
   );
 }
 
-function FormPropsTextFields() {
-  const styles = (theme) => ({
-    tr: {
-      borderColor: "#f1f1f1",
-      "&:hover": {
-        background: "#44B26F",
-      },
-    },
-  });
-
+function FormPropsTextFields({
+  name,
+  setName,
+  Cathegory,
+  setCathegory,
+  Quantity,
+  setQuantity,
+  Price,
+  setPrice,
+}) {
   return (
     <Box
       className="form__add-products"
@@ -44,17 +44,39 @@ function FormPropsTextFields() {
       noValidate
       autoComplete="off"
     >
-      <div>
-        <TextField required id="outlined-required" label="Cathegory" />
+      <TextField
+        required
+        id="outlined-required"
+        label="Cathegory"
+        value={Cathegory}
+        onChange={(event) => setCathegory(event.target.value)}
+      />
 
-        <TextField required id="outlined-required" label="Name" />
-        <TextField id="outlined-number" label="Quantity" type="number" shrink />
-        <TextField id="outlined-number" label="Price(₴)" type="number" shrink />
-        <FormControl sx={{ ml: 1 }}>
-          <FormLabel>Description</FormLabel>
-          <EmptyTextarea label="Description" />
-        </FormControl>
-      </div>
+      <TextField
+        required
+        id="outlined-required"
+        label="Name"
+        value={name}
+        onChange={(event) => setName(event.target.value)}
+      />
+      <TextField
+        id="outlined-number"
+        label="Quantity"
+        type="number"
+        value={Quantity}
+        onChange={(event) => setQuantity(event.target.value)}
+      />
+      <TextField
+        id="outlined-number"
+        label="Price(₴)"
+        type="number"
+        value={Price}
+        onChange={(event) => setPrice(event.target.value)}
+      />
+      <FormControl sx={{ ml: 1 }}>
+        <FormLabel>Description</FormLabel>
+        <EmptyTextarea label="Description" />
+      </FormControl>
     </Box>
   );
 }
