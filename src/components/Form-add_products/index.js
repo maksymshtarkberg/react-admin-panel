@@ -26,6 +26,7 @@ function FormPropsTextFields({
   setQuantity,
   Price,
   setPrice,
+  prodEdit,
 }) {
   return (
     <Box
@@ -48,6 +49,7 @@ function FormPropsTextFields({
         required
         id="outlined-required"
         label="Cathegory"
+        prodEdit={Cathegory}
         value={Cathegory}
         onChange={(event) => setCathegory(event.target.value)}
       />
@@ -56,6 +58,7 @@ function FormPropsTextFields({
         required
         id="outlined-required"
         label="Name"
+        prodEdit={name}
         value={name}
         onChange={(event) => setName(event.target.value)}
       />
@@ -63,6 +66,7 @@ function FormPropsTextFields({
         id="outlined-number"
         label="Quantity"
         type="number"
+        prodEdit={Quantity}
         value={Quantity}
         onChange={(event) => setQuantity(event.target.value)}
       />
@@ -70,6 +74,7 @@ function FormPropsTextFields({
         id="outlined-number"
         label="Price(₴)"
         type="number"
+        prodEdit={Price}
         value={Price}
         onChange={(event) => setPrice(event.target.value)}
       />
