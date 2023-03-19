@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Example from "../../components/Products-table";
+import DataProductsTable from "../../components/Products-table";
 import logo from "../../assets/logo.svg";
 import "./styles.css";
 import { API_URL } from "../../constants";
@@ -7,10 +7,6 @@ import { API_URL } from "../../constants";
 function ProductsPage() {
   const [tableData, setTableData] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [name, setName] = useState("");
-  const [Cathegory, setCathegory] = useState("");
-  const [Quantity, setQuantity] = useState(null);
-  const [Price, setPrice] = useState(null);
 
   useEffect(() => {
     if (!isLoaded) {
@@ -43,18 +39,7 @@ function ProductsPage() {
         <img src={logo} alt={"loading..."} className="login__logo"></img>
         <span className="login__text-sign">ROZETKA</span>
       </div>
-      <Example
-        setName={setName}
-        setCathegory={setCathegory}
-        setQuantity={setQuantity}
-        setPrice={setPrice}
-        name={name}
-        Cathegory={Cathegory}
-        Quantity={Quantity}
-        Price={Price}
-        // addProduct={addProduct}
-        // addItem={addItem}
-
+      <DataProductsTable
         tableData={tableData}
         setTableData={setTableData}
         editPoduct={editPoduct}

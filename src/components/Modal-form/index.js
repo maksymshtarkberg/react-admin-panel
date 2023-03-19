@@ -3,6 +3,8 @@ import "./styles.css";
 import { AiOutlinePlus } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { EventBusy } from "@mui/icons-material";
 
 const style_btn = {
   width: 200,
@@ -16,11 +18,18 @@ const style_btn = {
   },
 };
 
-export default function BasicModal({ text, text1, setCreateModalOpen }) {
+const BasicModal = ({ text, text1, setCreateModalOpen }) => {
+  const navigate = useNavigate();
+
+  const toPreview = (event) => {
+    event.preventDefault();
+    navigate("/preview");
+  };
+
   return (
     <div className="modal__btn">
       <FaRegUser className="btn-user-icon" />
-      <Button sx={style_btn} size="large">
+      <Button sx={style_btn} onClick={(event) => toPreview(event)} size="large">
         {text}
       </Button>
       <div className="modal__products-btn">
@@ -35,4 +44,6 @@ export default function BasicModal({ text, text1, setCreateModalOpen }) {
       </div>
     </div>
   );
-}
+};
+
+export default BasicModal;

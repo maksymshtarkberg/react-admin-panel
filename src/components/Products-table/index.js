@@ -11,15 +11,20 @@ import {
   IconButton,
   Stack,
   TextField,
+  TextareaAutosize,
   Tooltip,
 } from "@mui/material";
 import { Delete, Edit } from "@mui/icons-material";
+import CloseIcon from "@mui/icons-material/Close";
 import BasicModal from "../Modal-form";
 import { API_URL } from "../../constants";
+import DeleteConfirmationModal from "../Modal-delete";
 
-const Example = ({ tableData, setTableData, editPoduct }) => {
+const DataProductsTable = ({ tableData, setTableData, editPoduct }) => {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null);
 
   const handleCreateNewRow = async (values) => {
     tableData.push(values);
@@ -28,9 +33,10 @@ const Example = ({ tableData, setTableData, editPoduct }) => {
       method: "POST",
       body: JSON.stringify({
         name: values.name,
-        Quantity: +values.Quantity,
-        Cathegory: values.Cathegory,
-        Price: +values.Price,
+        quantity: +values.quantity,
+        cathegory: values.cathegory,
+        price: +values.price,
+        description: values.description,
         done: false,
       }),
       headers: {
@@ -45,9 +51,9 @@ const Example = ({ tableData, setTableData, editPoduct }) => {
       await editPoduct({
         id: +row.original.id,
         name: values.name,
-        Cathegory: values.Cathegory,
-        Quantity: +values.Quantity,
-        Price: +values.Price,
+        cathegory: values.cathegory,
+        quantity: +values.quantity,
+        price: +values.price,
         done: true,
       });
       setTableData([...tableData]);
@@ -59,9 +65,14 @@ const Example = ({ tableData, setTableData, editPoduct }) => {
     setValidationErrors({});
   };
 
-  const handleDeleteRow = useCallback(
-    async (row) => {
-      const productId = tableData[row.index].id;
+  const handleDeleteRow = useCallback(async (row) => {
+    setSelectedRow(row);
+    setIsModalOpen(true);
+  }, []);
+
+  const handleConfirmDelete = async () => {
+    if (selectedRow) {
+      const productId = tableData[selectedRow.index].id;
       await fetch(`${API_URL}/products/${productId}`, {
         method: "DELETE",
         headers: {
@@ -70,11 +81,17 @@ const Example = ({ tableData, setTableData, editPoduct }) => {
       });
       // Remove the deleted product from the local state
       const updatedTableData = [...tableData];
-      updatedTableData.splice(row.index, 1);
+      updatedTableData.splice(selectedRow.index, 1);
       setTableData(updatedTableData);
-    },
-    [tableData]
-  );
+      setSelectedRow(null);
+    }
+    setIsModalOpen(false);
+  };
+
+  const handleCancelDelete = () => {
+    setSelectedRow(null);
+    setIsModalOpen(false);
+  };
 
   const getCommonEditTextFieldProps = useCallback(
     (cell) => {
@@ -113,12 +130,14 @@ const Example = ({ tableData, setTableData, editPoduct }) => {
         size: 80,
       },
       {
-        accessorKey: "Cathegory",
+        accessorKey: "cathegory",
         header: "Cathegory",
         enableColumnOrdering: false,
         size: 140,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
+
+          placeholder: "Cathegory",
         }),
       },
       {
@@ -128,26 +147,34 @@ const Example = ({ tableData, setTableData, editPoduct }) => {
         size: 140,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
+
+          placeholder: "Name",
         }),
       },
 
       {
-        accessorKey: "Price",
+        accessorKey: "price",
         header: "Price (₴)",
         enableColumnOrdering: false,
         size: 80,
+
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
+
+          type: "number",
+          placeholder: "Price (₴)",
         }),
       },
       {
-        accessorKey: "Quantity",
+        accessorKey: "quantity",
         header: "Quantity",
         enableColumnOrdering: false,
         size: 80,
         muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
           ...getCommonEditTextFieldProps(cell),
+
           type: "number",
+          placeholder: "Quantity",
         }),
       },
     ],
@@ -160,6 +187,12 @@ const Example = ({ tableData, setTableData, editPoduct }) => {
         text="Prewiew"
         text1="Add Products"
         setCreateModalOpen={setCreateModalOpen}
+      />
+      <DeleteConfirmationModal
+        isOpen={isModalOpen}
+        productName={selectedRow ? selectedRow.getValue("name") : ""}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
       />
       <MaterialReactTable
         displayColumnDefOptions={{
@@ -210,10 +243,13 @@ const Example = ({ tableData, setTableData, editPoduct }) => {
 //example of creating a mui dialog modal for creating new rows
 export const CreateNewProduct = ({ open, columns, onClose, onSubmit }) => {
   const [values, setValues] = useState(() =>
-    columns.reduce((acc, column) => {
-      acc[column.accessorKey ?? ""] = "";
-      return acc;
-    }, {})
+    columns.reduce(
+      (acc, column) => {
+        acc[column.accessorKey ?? ""] = "";
+        return acc;
+      },
+      { description: "" }
+    )
   );
 
   const handleSubmit = () => {
@@ -224,17 +260,26 @@ export const CreateNewProduct = ({ open, columns, onClose, onSubmit }) => {
   };
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={onClose}>
       <DialogTitle sx={{ mb: 4 }} textAlign="center">
         Add New Product
       </DialogTitle>
       <DialogContent>
         <form onSubmit={(e) => e.preventDefault()}>
+          <CloseIcon
+            sx={{
+              cursor: "pointer",
+              position: "absolute",
+              left: "400px",
+              top: "20px",
+            }}
+            onClick={onClose}
+          />
           <Stack
             sx={{
               width: "100%",
-              minWidth: { xs: "300px", sm: "360px", md: "400px" },
-              gap: "1.5rem",
+              minWidth: { xs: "400px", sm: "360px", md: "400px" },
+              gap: "1rem",
             }}
           >
             {columns.map((column) => (
@@ -250,6 +295,17 @@ export const CreateNewProduct = ({ open, columns, onClose, onSubmit }) => {
                 }
               />
             ))}
+            Description
+            <TextareaAutosize
+              value={values.description}
+              minRows={6}
+              onChange={(event) =>
+                setValues({
+                  ...values,
+                  description: event.target.value,
+                })
+              }
+            />
           </Stack>
         </form>
       </DialogContent>
@@ -265,4 +321,4 @@ export const CreateNewProduct = ({ open, columns, onClose, onSubmit }) => {
   );
 };
 
-export default Example;
+export default DataProductsTable;
