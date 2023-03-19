@@ -1,3 +1,25 @@
+.login__block {
+  margin: 0 470px 0 470px;
+  background-color: white;
+}
+
+.login__logo {
+  background-color: black;
+  margin-right: 20px;
+  border-radius: 20px;
+}
+
+.login__text {
+  font-size: 46px;
+  font-weight: 600;
+}
+
+.login__sing-pos {
+  padding-top: 60px;
+  padding-bottom: 30px;
+  text-align: center;
+}
+
 .login__container {
   background-color: #44b26f;
   padding-top: 140px;
