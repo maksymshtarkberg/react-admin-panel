@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProductsCards from "../../components/Product-card";
+import ProductsCards from "../../components/Product-cards";
 import { API_URL } from "../../constants";
 import "./styles.css";
 import RozetkaLogo from "../../components/Logo-rozetka";
@@ -9,6 +9,7 @@ const style = {};
 function PreviewPage() {
   const [tableData, setTableData] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     if (!isLoaded) {
       getProducts();
@@ -26,7 +27,7 @@ function PreviewPage() {
       <RozetkaLogo />
       <div className="preview_cards">
         {tableData.map((product) => (
-          <ProductsCards key={product.id} product={product} />
+          <ProductsCards id={product.id} product={product} />
         ))}
       </div>
     </div>

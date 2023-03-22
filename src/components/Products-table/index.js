@@ -55,6 +55,7 @@ const DataProductsTable = ({ tableData, setTableData, editPoduct }) => {
         quantity: +values.quantity,
         price: +values.price,
         done: true,
+        description: values.description,
       });
       setTableData([...tableData]);
       exitEditingMode(); //required to exit editing mode and close modal
@@ -125,7 +126,7 @@ const DataProductsTable = ({ tableData, setTableData, editPoduct }) => {
         accessorKey: "id",
         header: "ID",
         enableColumnOrdering: false,
-        enableEditing: false, //disable editing on this column
+        enableEditing: false,
         enableSorting: false,
         size: 80,
       },
@@ -177,6 +178,14 @@ const DataProductsTable = ({ tableData, setTableData, editPoduct }) => {
           placeholder: "Quantity",
         }),
       },
+      {
+        accessorKey: "description",
+        header: "Description",
+        enableColumnOrdering: false,
+        muiTableBodyCellEditTextFieldProps: ({ cell }) => ({
+          ...getCommonEditTextFieldProps(cell),
+        }),
+      },
     ],
     [getCommonEditTextFieldProps]
   );
@@ -205,6 +214,7 @@ const DataProductsTable = ({ tableData, setTableData, editPoduct }) => {
         }}
         columns={columns}
         data={tableData}
+        initialState={{ columnVisibility: { description: false } }}
         editingMode="modal" //default
         enableColumnOrdering
         enableGlobalFilter={false}

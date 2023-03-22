@@ -30,7 +30,6 @@ function ProductsPage() {
       },
     });
     setIsLoaded(false);
-    console.log(product);
   };
 
   return (
@@ -43,7 +42,6 @@ function ProductsPage() {
         tableData={tableData}
         setTableData={setTableData}
         editPoduct={editPoduct}
-        setIsLoaded={setIsLoaded}
       />
     </div>
   );

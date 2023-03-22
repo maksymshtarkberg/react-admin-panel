@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -6,8 +6,17 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import basket from "../../assets/basket.svg";
 import "./styles.css";
+import { useNavigate } from "react-router-dom";
 
-function ProductsCards({ product }) {
+function ProductsCards({ id, product }) {
+  const [CurrentProd, setCurrentProd] = useState(id);
+  const navigate = useNavigate();
+
+  function handleCurrentProd() {
+    setCurrentProd(product.id);
+    navigate(`/preview/${CurrentProd}`);
+  }
+
   return (
     <div className="preview_card-size">
       <Card sx={{ pl: 3, pr: 3, mt: 1.5, display: "block" }}>
@@ -41,7 +50,7 @@ function ProductsCards({ product }) {
             }}
             color="#FC5B00"
           >
-            {product.price + " " + "₴"}
+            {`${product.price} ₴`}
           </Typography>
           <Typography
             sx={{
@@ -55,7 +64,7 @@ function ProductsCards({ product }) {
             color="#000000"
             variant="body2"
           >
-            {"Кількість: " + product.quantity}
+            {`Кількість: ${product.quantity}`}
           </Typography>
         </CardContent>
         <CardActions
@@ -63,6 +72,7 @@ function ProductsCards({ product }) {
           sx={{ display: "block", whiteSpace: "nowrap", pt: 5 }}
         >
           <Button
+            onClick={() => handleCurrentProd(id)}
             size="small"
             color="success"
             sx={{
