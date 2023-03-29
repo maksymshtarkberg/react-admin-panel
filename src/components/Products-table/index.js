@@ -305,7 +305,7 @@ export const CreateNewProduct = ({ open, columns, onClose, onSubmit }) => {
                 }
               />
             ))}
-            Description
+            {/* Description
             <TextareaAutosize
               value={values.description}
               minRows={6}
@@ -315,7 +315,7 @@ export const CreateNewProduct = ({ open, columns, onClose, onSubmit }) => {
                   description: event.target.value,
                 })
               }
-            />
+            /> */}
           </Stack>
         </form>
       </DialogContent>

@@ -19,8 +19,14 @@ function ProductsCards({ id, product }) {
 
   return (
     <div className="preview_card-size">
-      <Card sx={{ pl: 3, pr: 3, mt: 1.5, display: "block" }}>
-        <CardContent>
+      <Card
+        sx={{ pl: 3, pr: 3, mt: 1.6, display: "flex", flexDirection: "column" }}
+      >
+        <CardContent
+          sx={{
+            pb: 0,
+          }}
+        >
           <img className="preview_img" src={product.url} />
           <Typography
             sx={{
@@ -29,7 +35,7 @@ function ProductsCards({ id, product }) {
               lineHeight: "19px",
               fontWeight: 500,
               fontStyle: "normal",
-              paddingTop: 3,
+              paddingTop: 1,
             }}
             color="#000000"
             variant="h5"
@@ -42,7 +48,7 @@ function ProductsCards({ id, product }) {
             sx={{
               mb: 1.5,
               float: "left",
-              pt: 3,
+              pt: 2,
               fontSize: 24,
               lineHeight: "29px",
               fontWeight: 500,
@@ -55,7 +61,7 @@ function ProductsCards({ id, product }) {
           <Typography
             sx={{
               float: "right",
-              pt: 3,
+              pt: 2,
               fontSize: 15,
               lineHeight: "18px",
               fontWeight: 500,
@@ -69,7 +75,7 @@ function ProductsCards({ id, product }) {
         </CardContent>
         <CardActions
           className="preview_btn"
-          sx={{ display: "block", whiteSpace: "nowrap", pt: 5 }}
+          sx={{ display: "block", whiteSpace: "nowrap" }}
         >
           <Button
             onClick={() => handleCurrentProd(id)}
