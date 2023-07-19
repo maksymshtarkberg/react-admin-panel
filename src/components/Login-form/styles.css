@@ -24,12 +24,17 @@
   padding: 15px 0 15px 0;
   color: white;
   font-size: 24px;
-  margin: 20px 155px;
+  margin: 20px auto;
   margin-bottom: 130px;
   cursor: pointer;
+  width: 277px;
 }
 
 .login__error {
   text-align: center;
   color: red;
+}
+
+.login__pass {
+  margin: 0 auto;
 }

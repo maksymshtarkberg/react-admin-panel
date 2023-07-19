@@ -1,6 +1,7 @@
 .login__block {
-  margin: 0 470px 0 470px;
+  margin: 0 auto;
   background-color: white;
+  width: 900px;
 }
 
 .login__logo {
@@ -22,6 +23,5 @@
 
 .login__container {
   background-color: #44b26f;
-  padding-top: 140px;
-  padding-bottom: 59px;
+  padding-top: 100px;
 }

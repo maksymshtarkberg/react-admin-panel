@@ -33,17 +33,20 @@ function LoginForm({ onSubmit, error }) {
         value={valueLogin}
         onChange={handleChangeLogin}
       />
-      <input
-        className="login__input"
-        placeholder="Password"
-        type={toggle ? "text" : "password"}
-        value={valuePass}
-        onChange={handleChangePass}
-      />
-      {error && <div className="login__error">{error}</div>}
-      <div onClick={handleClickPass}>
-        <EyePass />
+      <div className="login__pass">
+        <input
+          className="login__input"
+          placeholder="Password"
+          type={toggle ? "text" : "password"}
+          value={valuePass}
+          onChange={handleChangePass}
+        />
+        <div onClick={handleClickPass}>
+          <EyePass />
+        </div>
       </div>
+
+      {error && <div className="login__error">{error}</div>}
       <input className="login__btn" type="submit" value="Login" />
     </form>
   );
